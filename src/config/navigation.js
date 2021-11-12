@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../containers/home";
-import Splash from "../containers/Splash"
+import Splash from "../containers/Splash";
 import AppIntro from "../containers/AppIntro";
 import { onAuthStateChanged, auth } from "../config/Firebase";
 import { useState } from "react";
@@ -14,7 +14,8 @@ import Result from "../containers/Result";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import store, { persistor } from "../store";
-
+import NumberSignIn from "../containers/NumberSignIn";
+import Varification from "../containers/Varifiation"
 
 function AppRouter() {
   const Drawer = createDrawerNavigator();
@@ -23,15 +24,10 @@ function AppRouter() {
   const Stack = createNativeStackNavigator();
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       console.log(uid);
       setuserAuth(true);
-      // ...
     } else {
-      // User is signed out
-      // ...
       setuserAuth(false);
       console.log("No USer");
     }
@@ -56,8 +52,8 @@ function AppRouter() {
                 />
                 <Drawer.Screen
                   options={{
-                    drawerItemStyle:{
-                      display: "none"
+                    drawerItemStyle: {
+                      display: "none",
                     },
                     title: "Question",
                     headerStyle: {
@@ -70,7 +66,7 @@ function AppRouter() {
                 />
                 <Drawer.Screen
                   options={{
-                    drawerItemStyle:{
+                    drawerItemStyle: {
                       // display: "none"
                     },
                     title: "Result",
@@ -106,6 +102,28 @@ function AppRouter() {
                     headerTintColor: "#fff",
                   }}
                   component={AppIntro}
+                />
+                <Drawer.Screen
+                  name="numberSign"
+                  options={{
+                    title: "Number Signin",
+                    headerStyle: {
+                      backgroundColor: "#22283e",
+                    },
+                    headerTintColor: "#fff",
+                  }}
+                  component={NumberSignIn}
+                />
+                 <Drawer.Screen
+                  name="varification"
+                  options={{
+                    title: "Varification",
+                    headerStyle: {
+                      backgroundColor: "#22283e",
+                    },
+                    headerTintColor: "#fff",
+                  }}
+                  component={Varification}
                 />
               </>
             )}
