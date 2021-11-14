@@ -13,7 +13,7 @@ import MyButton from "../components/Button";
 import MainLogo from "../components/MainLogo";
 import PhoneInput from "react-native-phone-number-input";
 
-const NumberSignIn = () => {
+const NumberSignIn = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
@@ -55,6 +55,7 @@ const NumberSignIn = () => {
             color="#2A2AC0"
             title="Continue"
             txtColor="#fff"
+            onPress={()=>navigation.navigate("varification")}
           />
         </View>
       </View>

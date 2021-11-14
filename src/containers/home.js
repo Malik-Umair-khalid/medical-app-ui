@@ -9,139 +9,127 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   FlatList,
+  Image,
+  ScrollView,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { auth, signOut } from "../config/Firebase";
+import { Input } from "react-native-elements";
+import card1 from "../../assets/Images/Dashboard/card1.png";
+import card2 from "../../assets/Images/Dashboard/card2.png";
+import card3 from "../../assets/Images/Dashboard/card3.png";
+import card4 from "../../assets/Images/Dashboard/card4.png";
 
-let quizList = [
-  {
-    title: "General Knowledge",
-    id: "0",
-  },
-  {
-    title: "Sports",
-    id: "1",
-  },
-  {
-    title: "Web Development",
-    id: "2",
-  },
-  {
-    title: "World Affairs",
-    id: "3",
-  },
-];
-
-const Item = ({ item, onPress, backgroundColor, textColor, color }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    key="1"
-    style={[styles.button, { backgroundColor: backgroundColor }]}
-  >
-    <Text style={{ color: textColor }}>{item.title}</Text>
-  </TouchableOpacity>
-);
-
+import MyCard from "../components/MyCard";
 function Home({ navigation }) {
-  const [selectedId, setSelectedId] = useState(null);
-  const startQuiz = () => {
-    if (selectedId) {
-      navigation.navigate("questions", { quiz: selectedId });
-      setSelectedId(null)
-    }
-  };
-
-  const logOut = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        navigation.navigate("signup");
-      })
-      .catch((error) => {});
-  };
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button color="#1ec77f" onPress={logOut} title="Logout" />
+        <Image source={require("../../assets/Images/user.png")} />
+      ),
+    });
+  });
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => navigation.openDrawer()}
+        >
+          <Image source={require("../../assets/Images/Dashboard/menu.png")} />
+        </TouchableOpacity>
       ),
     });
   });
 
-  const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#1ec77f" : "#ccdde7";
-    const color = item.id === selectedId ? "#fff" : "#000";
-    console.log(selectedId);
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.id)}
-        backgroundColor={backgroundColor}
-        textColor={color}
-      />
-    );
-  };
-
   return (
     <>
       <View style={styles.container}>
-        <View>
-          <Text style={styles.heading}>Selet The Quiz!</Text>
-        </View>
         <View
           style={{
+            flex: 0.1,
             width: "100%",
-            justifyContent: "space-between",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
-          {/* <TouchableHighlight key="1" style={styles.button}>
-            <Text style={{ color: "#fff" }}>Javascript</Text>
-          </TouchableHighlight>
-          <TouchableOpacity key="2" style={styles.button}>
-            <Text style={{ color: "#fff" }}>Html</Text>
-          </TouchableOpacity> */}
-          <FlatList
-            style={{ width: "100%" }}
-            data={quizList}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            extraData={selectedId}
+          <Input
+            containerStyle={{
+              width: "95%",
+              padding: 0,
+              borderBottomColor: "red",
+              marginTop: 40,
+            }}
+            inputContainerStyle={{
+              borderColor: "#fff",
+              backgroundColor: "#fff",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.27,
+              shadowRadius: 4.65,
+              elevation: 6,
+              borderRadius: 5,
+              height: 60,
+            }}
+            inputStyle={{ backgroundColor: "#fff", padding: 10 }}
+            placeholder="Your Location"
+            rightIcon={
+              <Image
+                source={require("../../assets/Images/Dashboard/search.png")}
+                style={{ marginRight: 20 }}
+              />
+            }
+            leftIconContainerStyle={{ padding: 5 }}
           />
         </View>
+        <ScrollView
+          style={{ flex: 0.9, width: "100%", marginTop: 20 }}
+          contentContainerStyle={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            padding: 15,
+            justifyContent: "space-around",
+          }}
+        >
+          <MyCard title={"Appointments"} src={card3} />
+          <MyCard title={"Records"} src={card4}/>
+          <MyCard title={"Forum"}src={card2} />
+          <MyCard title={"Account Settings"} src={card1} />
 
-        <TouchableOpacity onPress={startQuiz} style={styles.button2}>
-          <Text
+          {/* <View
             style={{
-              color: "#fff",
-              fontWeight: "500",
-              fontSize: 22,
+              backgroundColor: "#fff",
+              height: 280,
+              width: "45%",
+              marginTop: 10,
             }}
           >
-            Next
-          </Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-          onPress={(e) => {
-            handlePress(e);
-          }}
-          key="3"
-          style={styles.button}
-        >
-          <Text style={{ color: "#fff" }}>CSS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{ color: "#fff" }}>React</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={(e) => {
-            handlePress(e);
-          }}
-          key="5"
-          style={styles.button}
-        >
-          <Text style={{ color: "#fff" }}>React Native</Text>
-        </TouchableOpacity> */}
+            <Text>HEllo</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              height: 280,
+              width: "45%",
+              marginTop: 10,
+            }}
+          >
+            <Text>HEllo</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              height: 280,
+              width: "45%",
+              marginTop: 10,
+            }}
+          >
+            <Text>HEllo</Text>
+          </View> */}
+        </ScrollView>
       </View>
     </>
   );
@@ -149,7 +137,7 @@ function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#22283e",
+    backgroundColor: "#E5EAF3",
     alignItems: "center",
     justifyContent: "space-between",
     fontFamily: "Arial, Helvetica, sans-serif",

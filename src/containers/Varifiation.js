@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
 const CELL_COUNT = 6;
 
-const App = () => {
+const Varification = ({navigation}) => {
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -128,13 +128,13 @@ const App = () => {
         )}
       />
       <MyButton
-        onPress={() => navigation.navigate("numberSign")}
         color="#2A2AC0"
         title="Continue"
         txtColor="#fff"
+        onPress={()=>navigation.navigate("location")}
       />
     </View>
   );
 };
 
-export default App;
+export default Varification;
