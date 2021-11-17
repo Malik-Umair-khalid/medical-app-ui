@@ -77,7 +77,7 @@ export default function NewAppointment({ navigation }) {
         contentContainerStyle={{ alignItems: "center" }}
       >
         <MyRow src={row1} rating={rating1} />
-        <MyRow src={row2} rating={rating2} />
+        <MyRow onPress={()=>navigation.navigate("MyBooking")} src={row2} rating={rating2} />
         <MyRow src={row3} rating={rating3} />
         <MyRow src={row4} rating={rating4} />
       </ScrollView>

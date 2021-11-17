@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../containers/home";
@@ -26,11 +26,42 @@ import MedicalRecords from "../containers/MedicalRecords";
 import Help from "../containers/Help";
 import Forums from "../containers/Forum";
 
+import BookAppoint from "../containers/BookAppoint";
+import Payment from "../containers/Payment";
+
+function StackNavigatoraa() {
+  const Stack = createNativeStackNavigator();
+  return (
+    <Stack.Navigator initialRouteName="bookAppoint">
+      <Stack.Screen
+        name="bookAppoint"
+        options={{
+          headerStyle: {
+            backgroundColor: "#ECF1FA",
+          },
+          headerShadowVisible: false,
+        }}
+        component={BookAppoint}
+      />
+      <Stack.Screen
+        name="bookAppoint"
+        options={{
+          headerStyle: {
+            backgroundColor: "#ECF1FA",
+          },
+          headerShadowVisible: false,
+        }}
+        name="Payment"
+        component={Payment}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function AppRouter() {
   const Drawer = createDrawerNavigator();
   const [userAuth, setuserAuth] = useState(false);
 
-  const Stack = createNativeStackNavigator();
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
@@ -197,9 +228,20 @@ function AppRouter() {
                 component={MyAppointments}
               />
               <Drawer.Screen
+                name="MyBooking"
+                component={StackNavigatoraa}
+                options={{
+                  headerShown: false,
+                  drawerItemStyle: {
+                    display: "none",
+                  },
+
+                  headerShadowVisible: false,
+                }}
+              />
+              <Drawer.Screen
                 name="NewAppointment"
                 options={{
-            
                   title: "Book an appointment",
                   headerStyle: {
                     backgroundColor: "#FFFFFF",

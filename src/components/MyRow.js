@@ -10,7 +10,7 @@ import {
 import { Input } from "react-native-elements";
 import showmore from "../../assets/Images/NewAppointMent/showmore.png";
 
-function MyRow({ title, src, rating }) {
+function MyRow({ title, src, rating, onPress }) {
   return (
     <>
       <View
@@ -34,7 +34,7 @@ function MyRow({ title, src, rating }) {
           <Image source={src} />
         </View>
         <View style={{ flex: 0.8, padding: 20 }}>
-          <Text style={{ fontSize: 18, color: "#1C1C1C" }}>
+          <Text onPress={onPress}  style={{ fontSize: 18, color: "#1C1C1C" }}>
             Dr. Martin Pilier
           </Text>
           <Text style={{ fontSize: 13, color: "#BCC0C7" }}>Cardiologistr</Text>
